@@ -5,10 +5,14 @@
   "main": "server.js",
   "scripts": {
     "watch": "npm-run-all --parallel watch:*",
+    "debug": "npm-run-all --parallel watch:*",
     "watch:js": "watchify main.js -o static/bundle.js -d -v --poll",
     "watch:start": "nodemon server.js"
   },
-  "author": "Rasmus Israelsson",
+  "contributors": [
+      "Rasmus Israelsson",
+      "Kevin Amilund"
+  ],
   "license": "ISC",
   "dependencies": {
     "browserify": "^13.0.0",
