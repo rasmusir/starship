@@ -1,0 +1,11 @@
+{
+    "requireCurlyBraces" : true,
+    "disallowMultipleSpaces" : true,
+    "validateIndentation" : 4,
+    "requireCapitalizedConstructors" : true,
+    "requireSemicolons" : true,
+    "disallowTrailingWhitespace" : true,
+    "requireSpaceAfterKeywords" : true,
+    "requireSpaceBetweenArguments": true,
+    
+}

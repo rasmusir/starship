@@ -1,4 +1,5 @@
 "use strict";
+
 class Game
 {
     constructor(test)
@@ -15,3 +16,5 @@ class Game
 
     }
 }
+
+module.exports = Game;
