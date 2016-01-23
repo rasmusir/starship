@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "npm-run-all --parallel watch:*",
     "debug": "npm-run-all --parallel watch:*",
-    "watch:js": "watchify main.js -o static/bundle.js -d -v --poll",
+    "watch:js": "watchify client/main.js -o static/bundle.js -d -v --poll",
     "watch:start": "nodemon server.js"
   },
   "contributors": [
