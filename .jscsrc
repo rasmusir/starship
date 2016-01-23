@@ -7,5 +7,20 @@
     "disallowTrailingWhitespace" : true,
     "requireSpaceAfterKeywords" : true,
     "requireSpaceBetweenArguments": true,
-    
+    "requireSpaceAfterBinaryOperators": [
+        "=",
+        ",",
+        "+",
+        "-",
+        "/",
+        "*",
+        "==",
+        "===",
+        "!=",
+        "!==",
+        "%",
+        "&&",
+        "||"
+    ]
+
 }
