@@ -1,20 +1,5 @@
 "use strict";
 
-var Ship = require("../shared/ship");
+var GameClient = require("./GameClient");
 
-class Test
-{
-    constructor(name)
-    {
-        this.name = name;
-        this.ship = new Ship();
-    }
-    sayHello()
-    {
-        console.log("Hello "+this.name);
-        this.ship.fly();
-    }
-}
-
-var t = new Test();
-t.sayHello();
+var h = new GameClient();

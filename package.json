@@ -10,13 +10,14 @@
     "watch:start": "nodemon server.js"
   },
   "contributors": [
-      "Rasmus Israelsson",
-      "Kevin Amilund"
+    "Rasmus Israelsson",
+    "Kevin Amilund"
   ],
   "license": "ISC",
   "dependencies": {
     "browserify": "^13.0.0",
     "express": "^4.13.3",
+    "jsdoc": "^3.4.0",
     "nodemon": "^1.8.1",
     "npm-run-all": "^1.5.0",
     "npm-watch": "^0.1.1",
