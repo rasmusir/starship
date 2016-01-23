@@ -4,7 +4,7 @@ let express = require("express");
 let fs = require("fs");
 var app = express();
 
-app.use(express.static("static"));
+app.use("/resources",express.static("resources"));
 
 app.get("/", function(req, res){
     fs.readFile("index.html", function(err, data) {

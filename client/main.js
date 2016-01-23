@@ -1,6 +1,6 @@
 "use strict";
 
-var Ship = require("./ship");
+var Ship = require("../shared/ship");
 
 class Test
 {
