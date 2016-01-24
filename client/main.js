@@ -1,5 +1,7 @@
 "use strict";
 
-var GameClient = require("./GameClient");
+let GameClient = require("./GameClient");
 
-var h = new GameClient();
+window.addEventListener("load", () => {
+    let h = new GameClient();
+});

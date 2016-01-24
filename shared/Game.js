@@ -7,13 +7,12 @@ class Game
 
     }
     /**
-     * Hello, World!
-     * @param {number} test
-     * @return {Ship}
+     * Ticks the gameworld
+     * @param {float} deltaTime
      */
-    tick(test)
+    Tick(deltaTime)
     {
-
+        
     }
 }
 
