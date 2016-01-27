@@ -7,7 +7,8 @@
     "watch": "npm-run-all --parallel watch:*",
     "debug": "npm-run-all --parallel watch:*",
     "watch:js": "watchify client/main.js -o resources/scripts/client.js -d -v --poll",
-    "watch:start": "nodemon server.js"
+    "watch:start": "nodemon server.js",
+    "build": "browserify client/main.js | node cleaner/index.js"
   },
   "contributors": [
     "Rasmus Israelsson",
