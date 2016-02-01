@@ -11,7 +11,9 @@ class Renderer
     constructor()
     {
         this._scene = new THREE.Scene();
-        this._renderer = new THREE.WebGLRenderer();
+        this._renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
         document.body.appendChild(this._renderer.domElement);
         window.addEventListener("resize", () => { this._onResize(); });
 
