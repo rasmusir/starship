@@ -1,0 +1,11 @@
+{
+  "name": "vaccum",
+  "version": "0.0.1",
+  "description": "Removes parts of code",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Rasmus Israelsson",
+  "license": "ISC"
+}
