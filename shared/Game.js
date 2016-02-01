@@ -12,6 +12,14 @@ class Game
      */
     Tick(deltaTime)
     {
+
+    }
+    /** @server
+     * Ticks the gameworld on the server
+     * @param {float} deltaTime
+     */
+    ServerTick(deltaTime)
+    {
         
     }
 }
