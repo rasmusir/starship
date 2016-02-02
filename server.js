@@ -2,7 +2,10 @@
 
 let express = require("express");
 let fs = require("fs");
-var app = express();
+let app = express();
+let GameServer = require("./server/GameServer");
+let server = require("http").createServer(app);
+let gs = new GameServer(server);
 
 app.use("/resources", express.static("resources"));
 
@@ -16,4 +19,5 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(8080);
+
+server.listen(8080);
