@@ -5,6 +5,7 @@ let Renderer = require("./Renderer");
 let Ship = require("../shared/Ship");
 let Region = require("../shared/Region");
 let Vector = require("../shared/Vector");
+let ByteBuffer = require("../shared/ByteBuffer");
 
 /**
 * Base Game class
@@ -16,6 +17,17 @@ class GameClient extends Game
     constructor(test)
     {
         super();
+
+        let socket = io(":6699");
+
+        socket.on("connect", () => {
+            socket.on("message", (data) => {
+                let buffer = new ByteBuffer(data);
+                this._handleData(buffer);
+            });
+        });
+
+
         let renderer = new Renderer();
 
         this._region = new Region(renderer);
@@ -24,6 +36,27 @@ class GameClient extends Game
         this._region.Add(debugShip);
 
         renderer.Animate( () => { this.Tick(); });
+    }
+
+    _handleData(buffer)
+    {
+        switch (buffer.ReadByte())
+        {
+            case 254:
+            {
+                console.log("Signed in!");
+                console.log("Server message: " + buffer.ReadString());
+                break;
+            }
+            case 253:
+            {
+                console.log("Server message: " + buffer.ReadString());
+                break;
+            }
+            default:{
+                console.error("Uknown command recceived, scrapping frame.");
+            }
+        }
     }
 
     Tick(deltaTime)
