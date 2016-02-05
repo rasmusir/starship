@@ -16,33 +16,14 @@ class Vector
      */
     constructor(x, y, z)
     {
-        this._x = x || 0;
-        this._y = y || 0;
-        this._z = z || 0;
+        this.X = x || 0;
+        this.Y = y || 0;
+        this.Z = z || 0;
     }
 
-    /**
-     * X component
-     */
-    get X()
+    ToArray()
     {
-        return this._x;
-    }
-
-    /**
-     * Y component
-     */
-    get Y()
-    {
-        return this._y;
-    }
-
-    /**
-     * Z component
-     */
-    get Z()
-    {
-        return this._z;
+        return [this.X, this.Y, this.Z];
     }
 }
 

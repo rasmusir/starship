@@ -2,10 +2,12 @@
 
 let Game = require("../shared/Game");
 let Renderer = require("./Renderer");
-let Ship = require("../shared/Ship");
+let Cube = require("../shared/cube");
+let Ship = require("../shared/Objects/Ship");
 let Region = require("../shared/Region");
 let Vector = require("../shared/Vector");
 let ByteBuffer = require("../shared/ByteBuffer");
+let Network = require("../shared/Network");
 
 /**
 * Base Game class
@@ -31,30 +33,46 @@ class GameClient extends Game
         let renderer = new Renderer();
 
         this._region = new Region(renderer);
-        let debugShip = new Ship();
-
-        this._region.Add(debugShip);
 
         renderer.Animate( () => { this.Tick(); });
     }
 
     _handleData(buffer)
     {
-        switch (buffer.ReadByte())
+        let scrap = false;
+        while (buffer.GotData() && !scrap)
         {
-            case 254:
+            switch (buffer.ReadByte())
             {
-                console.log("Signed in!");
-                console.log("Server message: " + buffer.ReadString());
-                break;
-            }
-            case 253:
-            {
-                console.log("Server message: " + buffer.ReadString());
-                break;
-            }
-            default:{
-                console.error("Uknown command recceived, scrapping frame.");
+                case Network.OBJECT_CREATE:
+                {
+                    let object = new (Network.Class(buffer.ReadShort()));
+
+                    this._region.Add(object);
+
+                    break;
+                }
+                case Network.REGION_CHANGE:
+                {
+                    let regionID = buffer.ReadShort();
+                    this._region.Sync(buffer);
+                    break;
+                }
+                case Network.CONNECT:
+                {
+                    console.log("Signed in!");
+                    console.log("Server message: " + buffer.ReadString());
+                    break;
+                }
+                case Network.SERVER_MESSAGE:
+                {
+                    console.log("Server message: " + buffer.ReadString());
+                    break;
+                }
+                default:{
+                    console.error("Uknown command recceived, scrapping frame.");
+                    scrap = true;
+                }
             }
         }
     }

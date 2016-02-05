@@ -4,7 +4,7 @@ class Game
 {
     constructor(test)
     {
-
+        
     }
     /**
      * Ticks the gameworld
@@ -20,7 +20,7 @@ class Game
      */
     ServerTick(deltaTime)
     {
-        
+
     }
 }
 

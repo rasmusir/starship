@@ -1,5 +1,7 @@
 "use strict";
 
+let Vector = require("./Vector");
+
 class ByteBuffer
 {
     constructor(data)
@@ -26,6 +28,11 @@ class ByteBuffer
         return this._arrayBuffer.slice(0, this._position);
     }
 
+    GotData()
+    {
+        return this._position < this._arrayBuffer.byteLength;
+    }
+
     WriteByte(value)
     {
         this._dataView.setUint8(this._position, value);
@@ -34,7 +41,7 @@ class ByteBuffer
 
     WriteShort(value)
     {
-        this._dataView.setInt16(this._position, value);
+        this._dataView.setUint16(this._position, value);
         this._position += 2;
     }
 
@@ -47,6 +54,16 @@ class ByteBuffer
     WriteFloat32(value)
     {
         this._dataView.setFloat32(this._position, value);
+        this._position += 4;
+    }
+
+    WriteVector(value)
+    {
+        this._dataView.setFloat32(this._position, value.X);
+        this._position += 4;
+        this._dataView.setFloat32(this._position, value.Y);
+        this._position += 4;
+        this._dataView.setFloat32(this._position, value.Z);
         this._position += 4;
     }
 
@@ -77,9 +94,10 @@ class ByteBuffer
         return value;
     }
 
-    ReadInt16()
+    ReadShort()
     {
-        let value = this._dataView.getInt16(this._position);
+        let l = this._dataView.byteLength;
+        let value = this._dataView.getUint16(this._position);
         this._position += 2;
         return value;
     }
@@ -96,6 +114,17 @@ class ByteBuffer
         let value = this._dataView.getFloat32(this._position);
         this._position += 4;
         return value;
+    }
+
+    ReadVector()
+    {
+        let x = this._dataView.getFloat32(this._position);
+        this._position += 4;
+        let y = this._dataView.getFloat32(this._position);
+        this._position += 4;
+        let z = this._dataView.getFloat32(this._position);
+        this._position += 4;
+        return new Vector(x, y, z);
     }
 
     ReadString()

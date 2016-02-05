@@ -18,7 +18,6 @@ class Renderer
         window.addEventListener("resize", () => { this._onResize(); });
 
         this._camera = new Camera();
-
         this._onResize();
     }
 

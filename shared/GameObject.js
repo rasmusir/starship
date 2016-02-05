@@ -7,23 +7,27 @@ class GameObject
     constructor()
     {
         this.Position = new Vector();
-        this._clientId = NaN;
-        this._serverId = NaN;
+        this._id = NaN;
     }
 
-    OnClient(id)
+    OnClient()
     {
-        this._clientId = id;
+
     }
 
-    OnServer(id)
+    OnServer()
     {
-        this._serverId = id;
+
     }
 
-    Tick(deltaTime, isClient)
+    Tick(deltaTime)
     {
 
+    }
+
+    ServerTick(deltaTime)
+    {
+        
     }
 }
 
