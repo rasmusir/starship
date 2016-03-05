@@ -16,7 +16,7 @@ let Network = require("../shared/Network");
 */
 class GameClient extends Game
 {
-    constructor(test)
+    constructor(siteHandler)
     {
         super();
 
@@ -31,7 +31,7 @@ class GameClient extends Game
         });
 
 
-        let renderer = new Renderer();
+        let renderer = new Renderer(siteHandler);
 
         this._region = new ClientRegion(0, renderer, this);
         this.clientID = -1;

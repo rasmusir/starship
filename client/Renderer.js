@@ -8,13 +8,13 @@ let Camera = require("./Camera");
  */
 class Renderer
 {
-    constructor()
+    constructor(sitehandler)
     {
         this._scene = new THREE.Scene();
         this._renderer = new THREE.WebGLRenderer({
             antialias: true
         });
-        document.body.appendChild(this._renderer.domElement);
+        sitehandler.Gamearea.appendChild(this._renderer.domElement);
         window.addEventListener("resize", () => { this._onResize(); });
 
         this._camera = new Camera();

@@ -4,7 +4,7 @@
   "description": "A spaceship game",
   "main": "server.js",
   "scripts": {
-    "ugly" : "browserify client/main.js | uglifyjs -c > resources/scripts/client.min.js",
+    "ugly": "browserify client/main.js | uglifyjs -c > resources/scripts/client.min.js",
     "watch": "npm-run-all --parallel watch:*",
     "debug": "npm-run-all --parallel watch:*",
     "watch:js": "watchify client/main.js -o resources/scripts/client.js -d -v --poll --igv __filename,__dirname,process,global",
@@ -17,9 +17,12 @@
   ],
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
     "browserify": "^13.0.0",
     "express": "^4.13.3",
     "jsdoc": "^3.4.0",
+    "mysql": "^2.10.2",
     "nanotimer": "^0.3.14",
     "nodemon": "^1.8.1",
     "npm-run-all": "^1.5.0",

@@ -1,7 +1,7 @@
 "use strict";
 
-let GameClient = require("./GameClient");
+let SiteHandler = require("./SiteHandler");
 
 window.addEventListener("load", () => {
-    let h = new GameClient();
+    SiteHandler = new SiteHandler();
 });
