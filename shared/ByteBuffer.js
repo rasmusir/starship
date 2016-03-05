@@ -11,7 +11,7 @@ class ByteBuffer
             this._arrayBuffer = data;
         }
         else {
-            this._arrayBuffer = new ArrayBuffer(512);
+            this._arrayBuffer = new ArrayBuffer(4096);
         }
         this._dataView = new DataView(this._arrayBuffer);
         this._position = 0;
@@ -21,6 +21,26 @@ class ByteBuffer
     Seek(position)
     {
         this._position = position;
+    }
+
+    _moveForward(count)
+    {
+        if (this._position + 16 > this._dataView.byteLength)
+        {
+            let newbuffer = new ArrayBuffer(this._arrayBuffer.byteLength * 2);
+            let uint8 = new Uint8Array(newbuffer);
+            uint8.set(new Uint8Array(this._dataView.buffer));
+
+            this._arrayBuffer = uint8.buffer;
+            this._dataView = new DataView(this._arrayBuffer);
+        }
+
+        this._position += count;
+    }
+
+    Reset()
+    {
+        this._position = 0;
     }
 
     GetTrimmedBuffer()
@@ -36,35 +56,35 @@ class ByteBuffer
     WriteByte(value)
     {
         this._dataView.setUint8(this._position, value);
-        this._position++;
+        this._moveForward(1);
     }
 
     WriteShort(value)
     {
         this._dataView.setUint16(this._position, value);
-        this._position += 2;
+        this._moveForward(2);
     }
 
     WriteInt32(value)
     {
         this._dataView.setInt32(this._position, value);
-        this._position += 4;
+        this._moveForward(4);
     }
 
     WriteFloat32(value)
     {
         this._dataView.setFloat32(this._position, value);
-        this._position += 4;
+        this._moveForward(4);
     }
 
     WriteVector(value)
     {
         this._dataView.setFloat32(this._position, value.X);
-        this._position += 4;
+        this._moveForward(4);
         this._dataView.setFloat32(this._position, value.Y);
-        this._position += 4;
+        this._moveForward(4);
         this._dataView.setFloat32(this._position, value.Z);
-        this._position += 4;
+        this._moveForward(4);
     }
 
     WriteString(string)
@@ -79,12 +99,12 @@ class ByteBuffer
             enc = te.encode(string);
         }
         this._dataView.setUint16(this._position, enc.byteLength);
-        this._position += 2;
+        this._moveForward(2);
         for (let i = 0; i < enc.byteLength; i++)
         {
             this._dataView.setUint8(this._position + i, enc[i]);
         }
-        this._position += enc.byteLength;
+        this._moveForward(enc.byteLength);
     }
 
     ReadByte()
@@ -136,7 +156,7 @@ class ByteBuffer
 
         if (!process.browser)
         {
-
+            return (new Buffer(sb)).toString("utf8");
         }
         else
         {

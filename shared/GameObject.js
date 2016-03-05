@@ -4,10 +4,15 @@ let Vector = require("./Vector");
 
 class GameObject
 {
-    constructor()
+    constructor(region)
     {
         this.Position = new Vector();
         this._id = NaN;
+        this._region = region;
+        if (region)
+        {
+            this._gameClient = region._gameClient;
+        }
     }
 
     OnClient()
@@ -27,7 +32,12 @@ class GameObject
 
     ServerTick(deltaTime)
     {
-        
+
+    }
+
+    Delete()
+    {
+
     }
 }
 

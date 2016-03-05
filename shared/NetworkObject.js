@@ -5,9 +5,9 @@ let ByteBuffer = require("./byteBuffer");
 
 class NetworkObject extends GameObject
 {
-    constructor()
+    constructor(region)
     {
-        super();
+        super(region);
         this._networkID;
     }
 
@@ -18,10 +18,20 @@ class NetworkObject extends GameObject
 
     Send(buffer)
     {
-
+        buffer.WriteShort(this.NetworkID);
     }
 
     Receive(buffer)
+    {
+
+    }
+
+    ServerSend(buffer)
+    {
+        buffer.WriteShort(this.NetworkID);
+    }
+
+    ServerReceive(buffer)
     {
 
     }

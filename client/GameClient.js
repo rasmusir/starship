@@ -4,7 +4,7 @@ let Game = require("../shared/Game");
 let Renderer = require("./Renderer");
 let Cube = require("../shared/cube");
 let Ship = require("../shared/Objects/Ship");
-let Region = require("../shared/Region");
+let ClientRegion = require("./ClientRegion");
 let Vector = require("../shared/Vector");
 let ByteBuffer = require("../shared/ByteBuffer");
 let Network = require("../shared/Network");
@@ -21,6 +21,7 @@ class GameClient extends Game
         super();
 
         let socket = io(":6699");
+        this._socket = socket;
 
         socket.on("connect", () => {
             socket.on("message", (data) => {
@@ -32,7 +33,10 @@ class GameClient extends Game
 
         let renderer = new Renderer();
 
-        this._region = new Region(renderer);
+        this._region = new ClientRegion(0, renderer, this);
+        this.clientID = -1;
+
+        this._buffer = new ByteBuffer();
 
         renderer.Animate( () => { this.Tick(); });
     }
@@ -44,24 +48,35 @@ class GameClient extends Game
         {
             switch (buffer.ReadByte())
             {
-                case Network.OBJECT_CREATE:
-                {
-                    let object = new (Network.Class(buffer.ReadShort()));
-
-                    this._region.Add(object);
-
-                    break;
-                }
                 case Network.REGION_CHANGE:
                 {
                     let regionID = buffer.ReadShort();
+                    this._region.ChangeState(regionID);
                     this._region.Sync(buffer);
+                    break;
+                }
+                case Network.REGION_TICK:
+                {
+                    let regionID = buffer.ReadShort();
+                    this._region.Receive(buffer);
+                    break;
+                }
+                case Network.REGION_CREATE_OBJECT:
+                {
+                    let regionID = buffer.ReadShort();
+                    let object = new (Network.Class(buffer.ReadShort()))(this._region);
+                    let networkid = buffer.ReadShort();
+                    object._networkID = networkid;
+                    object.Sync(buffer);
+                    this._region.Add(object);
+
                     break;
                 }
                 case Network.CONNECT:
                 {
                     console.log("Signed in!");
-                    console.log("Server message: " + buffer.ReadString());
+                    this.ClientID = buffer.ReadShort();
+
                     break;
                 }
                 case Network.SERVER_MESSAGE:
@@ -80,6 +95,11 @@ class GameClient extends Game
     Tick(deltaTime)
     {
         this._region.Tick(deltaTime);
+
+        this._region.Send(this._buffer);
+
+        this._socket.send(this._buffer.GetTrimmedBuffer());
+        this._buffer.Reset();
     }
 }
 
