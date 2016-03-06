@@ -9,8 +9,18 @@ html,body
     padding: 0;
     height: 100%;
     width: 100%;
-    font-family: "freedom";
+    font-family: "arial";
     background: black;
+}
+
+#interface{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 4;
 }
 
 #gamearea
@@ -36,7 +46,7 @@ html,body
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255,255,255,0.5);
+    background: rgba(200,200,200,0.5);
     padding: 10px;
     text-align: center;
 
@@ -46,6 +56,48 @@ html,body
 #loginform.away
 {
     transform: translateX(-50%) translateY(-100%);
+}
+
+.box
+{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 250px;
+    background: rgba(30,30,30,0.9);
+    box-shadow: 0px 0px 20px 0px black inset;
+    border: 1px solid rgba(255,255,255,0.05);
+    transform: translateX(-50%) translateY(-50%) scaleY(1) perspective(600px) rotateX(0deg) scale(1,1);
+    visibility: visible;
+    overflow: hidden;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.box.hide
+{
+    transform: translateX(-50%) translateY(-50%) perspective(600px) rotateX(10deg) scale(0.9,0.9) !important;
+    opacity: 0;
+    visibility: hidden !important;
+}
+
+.box.green
+{
+    background: rgba(10,70,10,0.95);
+}
+
+.box.red
+{
+    background: rgba(70,10,10,0.95);
+}
+
+.box > .content
+{
+    padding: 20px;
+    text-align: center;
+    color: white;
 }
 
 a
@@ -63,4 +115,21 @@ a:hover
 {
     transform: scale(1.2);
     text-shadow: 0px 0px 10px black;
+}
+
+input, button
+{
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    width: 200px;
+    margin: 3px;
+    font-size: 16px;
+    transition: box-shadow 0.2s;
+    box-shadow: none;
+}
+
+input:focus, button:focus
+{
+    box-shadow: 0px 0px 5px rgba(0,255,255, 1);
 }

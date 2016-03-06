@@ -3,5 +3,5 @@
 let SiteHandler = require("./SiteHandler");
 
 window.addEventListener("load", () => {
-    SiteHandler = new SiteHandler();
+    SiteHandler.Init();
 });

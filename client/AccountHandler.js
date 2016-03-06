@@ -28,6 +28,14 @@ class AccountHandler
             callback(res.success);
         });
     }
+
+    Register(data, callback)
+    {
+
+        API.Post("/register", data, (res) => {
+            callback(res.success);
+        });
+    }
 }
 
 module.exports = new AccountHandler();

@@ -42,9 +42,13 @@ class User
     static FindByMail(mail, callback)
     {
         db.query('SELECT * FROM users WHERE email="' + mail + '" LIMIT 1', (err, rows) => {
-            if (err || rows.length == 0)
+            if (err)
             {
-                return callback(new Error("User cannot be found."));
+                return callback(err);
+            }
+            if (rows.length === 0)
+            {
+                return callback(null, null);
             }
             let user = new User();
             fill(user, rows[0]);
