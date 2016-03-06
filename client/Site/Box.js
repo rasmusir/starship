@@ -8,7 +8,7 @@ class Box
     {
         this._div = document.createElement("div");
         this._div.classList.add("box");
-        this._div.classList.add("hide");
+        //this._div.classList.add("hide");
 
         this._content = document.createElement("div");
         this._content.classList.add("content");
@@ -65,24 +65,27 @@ class Box
         this._div.classList.add("hide");
     }
 
-    Destroy()
+    Destroy(callback)
     {
         let destroy = () => {
             this._div.parentElement.removeChild(this._div);
-            this._div.removeEventListener("transitionend", destroy);
+            this._div.removeEventListener("animationend", destroy);
+            if (callback)
+            {
+                callback();
+            }
         };
 
-        //this._div.addEventListener("transitionend", destroy );
+        this._div.addEventListener("animationend", destroy );
         this._div.classList.add("hide");
     }
 
     SwitchBox(Box_, ...args)
     {
         args = args || [];
-        this.Destroy();
-        setTimeout(() => {
+        this.Destroy(() => {
             new Box_(...args);
-        }, 100);
+        });
     }
 }
 
