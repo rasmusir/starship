@@ -1,7 +1,7 @@
 "use strict";
 
 let Box = require("./Box");
-let AccountHandler = require("../accountHandler");
+let AccountHandler = require("../AccountHandler");
 
 
 class RegisterBox extends Box

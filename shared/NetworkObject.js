@@ -1,7 +1,7 @@
 "use strict";
 
 let GameObject = require("./GameObject");
-let ByteBuffer = require("./byteBuffer");
+let ByteBuffer = require("./ByteBuffer");
 
 class NetworkObject extends GameObject
 {
