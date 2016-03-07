@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>shared/GameObject.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Box.html">Box</a><ul class='methods'><li data-type='method'><a href="Box.html#Destroy">Destroy</a></li><li data-type='method'><a href="Box.html#Fetch">Fetch</a></li><li data-type='method'><a href="Box.html#Hide">Hide</a></li><li data-type='method'><a href="Box.html#ResizeToContent">ResizeToContent</a></li><li data-type='method'><a href="Box.html#SetSize">SetSize</a></li><li data-type='method'><a href="Box.html#Show">Show</a></li><li data-type='method'><a href="Box.html#SwitchBox">SwitchBox</a></li></ul></li><li><a href="ByteBuffer.html">ByteBuffer</a><ul class='methods'><li data-type='method'><a href="ByteBuffer.html#GetTrimmedBuffer">GetTrimmedBuffer</a></li><li data-type='method'><a href="ByteBuffer.html#GotData">GotData</a></li><li data-type='method'><a href="ByteBuffer.html#ReadByte">ReadByte</a></li><li data-type='method'><a href="ByteBuffer.html#ReadFloat32">ReadFloat32</a></li><li data-type='method'><a href="ByteBuffer.html#ReadInt32">ReadInt32</a></li><li data-type='method'><a href="ByteBuffer.html#ReadShort">ReadShort</a></li><li data-type='method'><a href="ByteBuffer.html#ReadString">ReadString</a></li><li data-type='method'><a href="ByteBuffer.html#ReadVector">ReadVector</a></li><li data-type='method'><a href="ByteBuffer.html#Reset">Reset</a></li><li data-type='method'><a href="ByteBuffer.html#Seek">Seek</a></li><li data-type='method'><a href="ByteBuffer.html#WriteByte">WriteByte</a></li><li data-type='method'><a href="ByteBuffer.html#WriteFloat32">WriteFloat32</a></li><li data-type='method'><a href="ByteBuffer.html#WriteInt32">WriteInt32</a></li><li data-type='method'><a href="ByteBuffer.html#WriteShort">WriteShort</a></li><li data-type='method'><a href="ByteBuffer.html#WriteString">WriteString</a></li><li data-type='method'><a href="ByteBuffer.html#WriteVector">WriteVector</a></li></ul></li><li><a href="Camera.html">Camera</a><ul class='methods'><li data-type='method'><a href="Camera.html#SetScreenSize">SetScreenSize</a></li></ul></li><li><a href="Client.html">Client</a></li><li><a href="ClientApi.html">ClientApi</a><ul class='methods'><li data-type='method'><a href="ClientApi.html#Post">Post</a></li></ul></li><li><a href="ClientRegion.html">ClientRegion</a><ul class='methods'><li data-type='method'><a href="ClientRegion.html#ChangeState">ChangeState</a></li></ul></li><li><a href="FailBox.html">FailBox</a><ul class='methods'><li data-type='method'><a href="FailBox.html#Destroy">Destroy</a></li><li data-type='method'><a href="FailBox.html#Fetch">Fetch</a></li><li data-type='method'><a href="FailBox.html#Hide">Hide</a></li><li data-type='method'><a href="FailBox.html#ResizeToContent">ResizeToContent</a></li><li data-type='method'><a href="FailBox.html#SetSize">SetSize</a></li><li data-type='method'><a href="FailBox.html#Show">Show</a></li><li data-type='method'><a href="FailBox.html#SwitchBox">SwitchBox</a></li></ul></li><li><a href="Game.html">Game</a><ul class='methods'><li data-type='method'><a href="Game.html#ServerTick">ServerTick</a></li><li data-type='method'><a href="Game.html#Tick">Tick</a></li></ul></li><li><a href="GameClient.html">GameClient</a><ul class='methods'><li data-type='method'><a href="GameClient.html#ServerTick">ServerTick</a></li><li data-type='method'><a href="GameClient.html#Tick">Tick</a></li></ul></li><li><a href="GameObject.html">GameObject</a><ul class='methods'><li data-type='method'><a href="GameObject.html#Delete">Delete</a></li><li data-type='method'><a href="GameObject.html#OnClient">OnClient</a></li><li data-type='method'><a href="GameObject.html#OnServer">OnServer</a></li><li data-type='method'><a href="GameObject.html#ServerTick">ServerTick</a></li><li data-type='method'><a href="GameObject.html#Tick">Tick</a></li></ul></li><li><a href="GameServer.html">GameServer</a><ul class='methods'><li data-type='method'><a href="GameServer.html#clientConnected">clientConnected</a></li><li data-type='method'><a href="GameServer.html#ServerTick">ServerTick</a></li><li data-type='method'><a href="GameServer.html#Tick">Tick</a></li></ul></li><li><a href="LoginBox.html">LoginBox</a><ul class='methods'><li data-type='method'><a href="LoginBox.html#Destroy">Destroy</a></li><li data-type='method'><a href="LoginBox.html#Fetch">Fetch</a></li><li data-type='method'><a href="LoginBox.html#Hide">Hide</a></li><li data-type='method'><a href="LoginBox.html#ResizeToContent">ResizeToContent</a></li><li data-type='method'><a href="LoginBox.html#SetSize">SetSize</a></li><li data-type='method'><a href="LoginBox.html#Show">Show</a></li><li data-type='method'><a href="LoginBox.html#SwitchBox">SwitchBox</a></li></ul></li><li><a href="Region.html">Region</a><ul class='methods'><li data-type='method'><a href="Region.html#Add">Add</a></li><li data-type='method'><a href="Region.html#Delete">Delete</a></li><li data-type='method'><a href="Region.html#Receive">Receive</a></li><li data-type='method'><a href="Region.html#Send">Send</a></li><li data-type='method'><a href="Region.html#Sync">Sync</a></li><li data-type='method'><a href="Region.html#Tick">Tick</a></li></ul></li><li><a href="RegisterBox.html">RegisterBox</a><ul class='methods'><li data-type='method'><a href="RegisterBox.html#Destroy">Destroy</a></li><li data-type='method'><a href="RegisterBox.html#Fetch">Fetch</a></li><li data-type='method'><a href="RegisterBox.html#Hide">Hide</a></li><li data-type='method'><a href="RegisterBox.html#ResizeToContent">ResizeToContent</a></li><li data-type='method'><a href="RegisterBox.html#SetSize">SetSize</a></li><li data-type='method'><a href="RegisterBox.html#Show">Show</a></li><li data-type='method'><a href="RegisterBox.html#SwitchBox">SwitchBox</a></li></ul></li><li><a href="Renderer.html">Renderer</a><ul class='methods'><li data-type='method'><a href="Renderer.html#Animate">Animate</a></li></ul></li><li><a href="ServerApi.html">ServerApi</a></li><li><a href="ServerClient.html">ServerClient</a><ul class='methods'><li data-type='method'><a href="ServerClient.html#Handshake">Handshake</a></li><li data-type='method'><a href="ServerClient.html#MoveTo">MoveTo</a></li></ul></li><li><a href="ServerRegion.html">ServerRegion</a><ul class='methods'><li data-type='method'><a href="ServerRegion.html#Add">Add</a></li><li data-type='method'><a href="ServerRegion.html#Delete">Delete</a></li><li data-type='method'><a href="ServerRegion.html#MoveClient">MoveClient</a></li><li data-type='method'><a href="ServerRegion.html#Receive">Receive</a></li><li data-type='method'><a href="ServerRegion.html#Send">Send</a></li><li data-type='method'><a href="ServerRegion.html#Sync">Sync</a></li><li data-type='method'><a href="ServerRegion.html#Tick">Tick</a></li></ul></li><li><a href="SuccessBox.html">SuccessBox</a><ul class='methods'><li data-type='method'><a href="SuccessBox.html#Destroy">Destroy</a></li><li data-type='method'><a href="SuccessBox.html#Fetch">Fetch</a></li><li data-type='method'><a href="SuccessBox.html#Hide">Hide</a></li><li data-type='method'><a href="SuccessBox.html#ResizeToContent">ResizeToContent</a></li><li data-type='method'><a href="SuccessBox.html#SetSize">SetSize</a></li><li data-type='method'><a href="SuccessBox.html#Show">Show</a></li><li data-type='method'><a href="SuccessBox.html#SwitchBox">SwitchBox</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.Create">Create</a></li><li data-type='method'><a href="User.html#.Find">Find</a></li><li data-type='method'><a href="User.html#.FindByMail">FindByMail</a></li><li data-type='method'><a href="User.html#Unlock">Unlock</a></li></ul></li><li><a href="Vector.html">Vector</a><ul class='methods'><li data-type='method'><a href="Vector.html#ToArray">ToArray</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="AccountHandler.html">AccountHandler</a><ul class='methods'><li data-type='method'><a href="AccountHandler.html#Login">Login</a></li><li data-type='method'><a href="AccountHandler.html#Register">Register</a></li></ul></li><li><a href="Input.html">Input</a></li><li><a href="SiteHandler.html">SiteHandler</a><ul class='methods'><li data-type='method'><a href="SiteHandler.html#StartGame">StartGame</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">shared/GameObject.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+
+let Vector = require("./Vector");
+/**
+ * Game object base class
+ */
+class GameObject
+{
+    /**
+     *
+     * @param  {Region} region The region this game object exists in
+     */
+    constructor(region)
+    {
+        this.Position = new Vector();
+        this._id = NaN;
+        this._region = region;
+        if (region)
+        {
+            this._gameClient = region._gameClient;
+        }
+    }
+    /**
+     * Called when the game object is initialized on the client
+     */
+    OnClient()
+    {
+
+    }
+
+    /**
+     * Called when the game object is initialized on the server
+     */
+    OnServer()
+    {
+
+    }
+    /**
+     * Ticks the game object
+     * @param {float} deltaTime
+     */
+    Tick(deltaTime)
+    {
+
+    }
+
+    /**
+     * Ticks the game object on the server
+     * @param {float} deltaTime
+     */
+    ServerTick(deltaTime)
+    {
+
+    }
+    /**
+     * Removes the game object
+     */
+    Delete()
+    {
+
+    }
+}
+
+module.exports = GameObject;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Mar 07 2016 22:58:08 GMT+0100 (W. Europe Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,7 +1,9 @@
 "use strict";
 
 let User = require("./DAL/User");
-
+/**
+ * The server REST api
+ */
 class ServerApi
 {
     constructor(app)

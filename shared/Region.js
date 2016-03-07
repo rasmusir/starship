@@ -5,14 +5,23 @@ let NetworkObject = require("./NetworkObject");
 let ByteBuffer = require("./ByteBuffer");
 let Client = require("./Client");
 
+/**
+ * Represents a region in the game
+ */
+
 class Region
 {
-    constructor(id, client)
+    /**
+     *
+     * @param  {int} id
+     * @param  {bool} isClient is the region on the client side?
+     */
+    constructor(id, isClient)
     {
         this._id = id || null;
         this._objects = new Map();
         this._currId = 0;
-        this._isClient = client;
+        this._isClient = isClient;
         this._clients = new Map();
     }
 
@@ -48,7 +57,10 @@ class Region
         this._objects.set(this._currId, object);
         this._currId++;
     }
-
+    /**
+     * Removes an object to the region
+     * @param {GameObject} object
+     */
     Delete(object)
     {
         if (this._isClient)
@@ -68,7 +80,10 @@ class Region
         this._objects.set(this._currId, object);
         this._currId++;
     }
-
+    /**
+     * Ticks the region
+     * @param {float} deltaTime
+     */
     Tick(deltaTime)
     {
         this._objects.forEach( (object, id) => {
@@ -82,7 +97,10 @@ class Region
             }
         });
     }
-
+    /**
+     * Synchronizes the region with the [buffer]
+     * @param {ByteBuffer} buffer
+     */
     Sync(buffer)
     {
         let clientcount = buffer.ReadShort();
@@ -102,7 +120,10 @@ class Region
             this.Add(object);
         }
     }
-
+    /**
+     * Sends the region object changes to the [buffer]
+     * @param {ByteBuffer} buffer
+     */
     Send(buffer)
     {
         let b = buffer;
@@ -112,7 +133,10 @@ class Region
             object.Send(b);
         });
     }
-
+    /**
+     * Receives the region object changes from the [buffer]
+     * @param {ByteBuffer} buffer
+     */
     Receive(b)
     {
         while (b.GotData())

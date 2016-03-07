@@ -1,5 +1,10 @@
 "use strict";
-
+/**
+ * It handles all the input from gamepad, touch, keyboard and mouse.
+ * @namespace
+ * @property {bool} Left Is the player pressing Left?
+ * @property {bool} Right Is the player pressing Right?
+ */
 class Input
 {
     constructor()
@@ -61,6 +66,7 @@ class Input
         this.Down = false;
     }
 }
+
 if (process.browser)
 {
     module.exports = new Input();

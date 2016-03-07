@@ -4,10 +4,13 @@ let Camera = require("./Camera");
 
 /**
  * Renderer
- * @class
  */
 class Renderer
 {
+    /**
+     *
+     * @param  {SiteHandler} sitehandler the current site handler
+     */
     constructor(sitehandler)
     {
         this._scene = new THREE.Scene();
@@ -20,12 +23,17 @@ class Renderer
         this._camera = new Camera();
         this._onResize();
     }
-
+    /**
+     * The current Three.js Scene object.
+     */
     get Scene()
     {
         return this._scene;
     }
-
+    /**
+     * Starts the scene animation
+     * @param {Function} callback a function that will be called before every frame renders
+     */
     Animate(callback)
     {
         this._onRender(callback);

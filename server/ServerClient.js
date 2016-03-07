@@ -4,8 +4,17 @@ let ByteBuffer = require("../shared/ByteBuffer");
 let Network = require("../shared/Network");
 let Client = require("../shared/Client");
 
+/**
+ * ServerClient is created on server to keep track of a client
+ * @extends Client
+ */
 class ServerClient extends Client
 {
+    /**
+     * ServerClient is created with a socket, and and ID to represent the client
+     * @param  {Socket} socket Socket the client connected with
+     * @param  {int} id     The clients ID
+     */
     constructor(socket, id)
     {
         super(id);
@@ -13,7 +22,9 @@ class ServerClient extends Client
         this._buffer = new ByteBuffer();
 
     }
-
+    /**
+     * Performs a handshake with the client. Used to let the client know we have recognized it's connection.
+     */
     Handshake()
     {
         this._buffer.WriteByte(Network.CONNECT);
@@ -27,7 +38,10 @@ class ServerClient extends Client
             this.Receive(b);
         });
     }
-
+    /**
+     * Move the client to a region
+     * @param {ServerRegion} region A Server region to move the client to
+     */
     MoveTo(region)
     {
         region.MoveClient(this);
@@ -66,8 +80,6 @@ class ServerClient extends Client
         }
     }
 }
-
-
 
 function toArrayBuffer(buffer) {
     let ab = new ArrayBuffer(buffer.length);

@@ -2,6 +2,9 @@
 
 let Region = require("../shared/Region");
 
+/**
+ * A region on the clientside
+ */
 class ClientRegion extends Region
 {
     constructor(id, renderer, gameClient)
@@ -15,12 +18,17 @@ class ClientRegion extends Region
         this.Renderer.Scene.add(light);
         this.Renderer.Scene.add(alight);
     }
-
+    /**
+     * The current {@link Renderer} in use by the region
+     */
     get Renderer()
     {
         return this._renderer;
     }
-
+    /**
+     * Changes the state of the region.
+     * @param {int} id
+     */
     ChangeState(id)
     {
         this._id = id;

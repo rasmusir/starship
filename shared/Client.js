@@ -1,5 +1,7 @@
 "use strict";
-
+/**
+ * A client
+ */
 class Client
 {
     constructor(id)
@@ -8,7 +10,9 @@ class Client
         this._name = "unnamed" + Math.floor(Math.random() * 10);
         this._region;
     }
-
+    /**
+     * The ID assigned to the client from the server
+     */
     get ID()
     {
         return this._id;

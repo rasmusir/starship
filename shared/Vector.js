@@ -2,17 +2,14 @@
 
 /**
  * A 3D Vector
- * @param  {float} x
- * @param  {float} y
- * @param  {float} z
  */
 class Vector
 {
     /**
-     * A 3D Vector
-     * @param  {float} x
-     * @param  {float} y
-     * @param  {float} z
+     * You can construct the vector with no arguments or the XYZ components
+     * @param {float} [x]
+     * @param {float} [y]
+     * @param {float} [z]
      */
     constructor(x, y, z)
     {
@@ -21,6 +18,9 @@ class Vector
         this.Z = z || 0;
     }
 
+    /**
+     * Returns an array containing the X Y and Z component. (in that order)
+     */
     ToArray()
     {
         return [this.X, this.Y, this.Z];

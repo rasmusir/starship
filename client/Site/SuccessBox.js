@@ -1,9 +1,18 @@
 "use strict";
 
 let Box = require("./Box");
-
+/**
+ * A Box styled to indicate that something has succeeded
+ * @extends Box
+ */
 class SuccessBox extends Box
 {
+    /**
+     *
+     * @param  {string}   message  The massage to be shown
+     * @param  {string}   button   The text the button will contain
+     * @param  {Function} callback Will be called when the button has been pressed
+     */
     constructor(message, button, callback)
     {
         super();

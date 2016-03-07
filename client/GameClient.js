@@ -92,6 +92,10 @@ class GameClient extends Game
         }
     }
 
+    /**
+     * Ticks the game client
+     * @param {float} deltaTime
+     */
     Tick(deltaTime)
     {
         this._region.Tick(deltaTime);

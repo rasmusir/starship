@@ -6,12 +6,15 @@ let AccountHandler = require("./AccountHandler");
 let GameClient = require("./GameClient");
 
 let LoginBox = require("./Site/LoginBox");
-
+/**
+ * Handled all webrelated things.
+ * @namespace
+ */
 class SiteHandler
 {
     constructor()
     {
-        
+
     }
 
     get Gamearea() { return this._gamearea; }
@@ -23,7 +26,9 @@ class SiteHandler
         let lb = new LoginBox();
         lb.StartGame = this.StartGame.bind(this);
     }
-
+    /**
+     * Starts the game.
+     */
     StartGame()
     {
         let h = new GameClient(this);
