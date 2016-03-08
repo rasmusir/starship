@@ -6,7 +6,10 @@ let socketio = require("socket.io");
 let ServerRegion = require("./ServerRegion");
 let Ship = require("../shared/Objects/Ship");
 let Nanotimer = require("nanotimer");
-
+/**
+ * The game server.
+ * @extends Game
+ */
 class GameServer extends Game
 {
     constructor(server)
@@ -27,7 +30,7 @@ class GameServer extends Game
         });
 
     }
-
+    
     ServerTick(deltaTime)
     {
         this._regions.forEach( (region) => {
@@ -35,7 +38,10 @@ class GameServer extends Game
             region.ServerSend(this.io);
         });
     }
-
+    /**
+     * Called when a new socket has been opened.
+     * @param  {Socket} socket The socket that connected
+     */
     clientConnected(socket)
     {
         let client = new ServerClient(socket, this._clients.length);

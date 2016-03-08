@@ -9,7 +9,8 @@
     "debug": "npm-run-all --parallel watch:*",
     "watch:js": "watchify client/main.js -o resources/scripts/client.js -d -v --poll --igv __filename,__dirname,process,global",
     "watch:start": "nodemon server.js",
-    "build": "browserify client/main.js | node cleaner/index.js"
+    "build": "browserify client/main.js | node cleaner/index.js",
+    "build-docs": "sh builddocs.sh"
   },
   "contributors": [
     "Rasmus Israelsson",
@@ -22,6 +23,7 @@
     "browserify": "^13.0.0",
     "express": "^4.13.3",
     "jsdoc": "^3.4.0",
+    "minami": "^1.1.1",
     "mysql": "^2.10.2",
     "nanotimer": "^0.3.14",
     "nodemon": "^1.8.1",

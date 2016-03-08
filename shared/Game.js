@@ -1,10 +1,12 @@
 "use strict";
-
+/**
+ * The base game class
+ */
 class Game
 {
     constructor(test)
     {
-        
+
     }
     /**
      * Ticks the gameworld
@@ -14,7 +16,8 @@ class Game
     {
 
     }
-    /** @server
+    //@server
+    /**
      * Ticks the gameworld on the server
      * @param {float} deltaTime
      */

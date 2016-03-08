@@ -4,6 +4,10 @@ let Region = require("../shared/Region");
 let ByteBuffer = require("../shared/ByteBuffer");
 let Network = require("../shared/Network");
 
+/**
+ * A server region.
+ * @extends Region
+ */
 class ServerRegion extends Region
 {
     constructor(id)
@@ -11,7 +15,10 @@ class ServerRegion extends Region
         super(id, false);
         this._buffer = new ByteBuffer();
     }
-
+    /**
+     * Moves a client to this region
+     * @param {Client} client Client to move
+     */
     MoveClient(client)
     {
         if (!this._clients.has(client.ID))

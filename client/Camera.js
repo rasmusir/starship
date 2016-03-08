@@ -1,5 +1,7 @@
 "use strict";
-
+/**
+ * The camera class
+ */
 class Camera
 {
     constructor()
@@ -17,12 +19,18 @@ class Camera
 
         this._position.z = 2;
     }
-
+    /**
+     * Returns the THREE.Camera currently in use.
+     */
     get Camera()
     {
         return this._camera;
     }
-
+    /**
+     * Sets the game display size.
+     * @param {int} width
+     * @param {int} height
+     */
     SetScreenSize(width, height)
     {
         this._ratio = width / height;

@@ -3,7 +3,10 @@
 let Box = require("./Box");
 let AccountHandler = require("../AccountHandler");
 let RegisterBox = require("./RegisterBox");
-
+/**
+ * A login box
+ * @extends Box
+ */
 class LoginBox extends Box
 {
     constructor()
