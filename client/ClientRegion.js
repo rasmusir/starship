@@ -1,6 +1,9 @@
 "use strict";
 
 let Region = require("../shared/Region");
+let Blueprint = require("../shared/Blueprint");
+let ShipMeshBuilder = require("../shared/ShipMeshBuilder");
+let Vector = require("../shared/Vector");
 
 /**
  * A region on the clientside
@@ -17,7 +20,21 @@ class ClientRegion extends Region
         light.position.set( 0, 1, 2);
         this.Renderer.Scene.add(light);
         this.Renderer.Scene.add(alight);
+
+
     }
+
+    Tick(dt)
+    {
+        super.Tick(dt);
+
+        if (this.mesh)
+        {
+            this.mesh.rotation.x += 0.01;
+            this.mesh.rotation.y += 0.01;
+        }
+    }
+
     /**
      * The current {@link Renderer} in use by the region
      */
@@ -42,6 +59,12 @@ class ClientRegion extends Region
         light.position.set( 0, 1, 2);
         this.Renderer.Scene.add(light);
         this.Renderer.Scene.add(alight);
+    }
+
+    Delete(object)
+    {
+        object.OnClientDelete();
+        super.Delete(object);
     }
 }
 

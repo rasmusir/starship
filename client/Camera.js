@@ -17,7 +17,7 @@ class Camera
 
         this._position = this._camera.position;
 
-        this._position.z = 2;
+        this._position.z = 10;
     }
     /**
      * Returns the THREE.Camera currently in use.

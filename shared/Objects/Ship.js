@@ -1,11 +1,12 @@
 "use strict";
 
 let NetworkObject = require("../NetworkObject");
-let Cube = require("../cube");
 let Vector = require("../Vector");
 let Input = require("../../client/Input");
+let ShipMeshBuilder = require("../ShipMeshBuilder");
+let Blueprint = require("../Blueprint");
 
-class Ship extends Cube
+class Ship extends NetworkObject
 {
     constructor(region)
     {
@@ -22,12 +23,22 @@ class Ship extends Cube
 
     OnClient()
     {
-        super.OnClient();
-        console.log("My id is: " + this.NetworkID);
+        let smb = new ShipMeshBuilder();
+        let bp = new Blueprint();
+
+        bp.Set(0, 0, 0, 1);
+        this._mesh = smb.Build(bp, new Vector(-0.5, -0.5, -0.5));
+        this._scene.add(this._mesh);
+    }
+
+    OnClientDelete()
+    {
+        this._scene.remove(this._mesh);
     }
 
     OnServer()
     {
+
     }
 
     Tick()
@@ -42,6 +53,10 @@ class Ship extends Cube
             this.Position.X += (this._target.X - this.Position.X) / 10;
             this.Position.Y += (this._target.Y - this.Position.Y) / 10;
         }
+
+        this._mesh.rotation.x += 0.01;
+        this._mesh.rotation.y += 0.01;
+        this._mesh.position.set( ...this.Position.ToArray() );
     }
 
     SyncWrite(buffer)

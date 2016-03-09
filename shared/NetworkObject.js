@@ -8,7 +8,7 @@ class NetworkObject extends GameObject
     constructor(region)
     {
         super(region);
-        this._networkID;
+        this._networkID = NaN;
     }
 
     get NetworkID()

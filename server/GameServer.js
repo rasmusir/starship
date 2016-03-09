@@ -30,7 +30,7 @@ class GameServer extends Game
         });
 
     }
-    
+
     ServerTick(deltaTime)
     {
         this._regions.forEach( (region) => {
@@ -50,7 +50,12 @@ class GameServer extends Game
         client.MoveTo(this._regions[0]);
         let s = new Ship(this._regions[0]);
         s._client = client;
+        console.log("Client connected");
         this._regions[0].Add(s);
+        socket.on("disconnect", () => {
+            console.log("Client disconnected");
+            this._regions[0].Delete(s);
+        });
     }
 }
 

@@ -3,6 +3,7 @@
 let Region = require("../shared/Region");
 let ByteBuffer = require("../shared/ByteBuffer");
 let Network = require("../shared/Network");
+let NetworkObject = require("../shared/NetworkObject");
 
 /**
  * A server region.
@@ -57,6 +58,18 @@ class ServerRegion extends Region
         this._buffer.WriteShort(object.NETWORKID);
         this._buffer.WriteShort(object.NetworkID);
         object.SyncWrite(this._buffer);
+    }
+
+    Delete(object)
+    {
+        console.log("removing: " + object.ID);
+        if (object instanceof NetworkObject)
+        {
+            this._buffer.WriteByte(Network.REGION_DELETE_OBJECT);
+            this._buffer.WriteShort(this.ID);
+            this._buffer.WriteShort(object.NetworkID);
+        }
+        super.Delete(object);
     }
 
     SyncWrite(buffer)

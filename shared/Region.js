@@ -20,6 +20,7 @@ class Region
     {
         this._id = id || null;
         this._objects = new Map();
+        this._networkObjects = new Map();
         this._currId = 0;
         this._isClient = isClient;
         this._clients = new Map();
@@ -43,17 +44,22 @@ class Region
     {
         if (this._isClient)
         {
+            if (object instanceof NetworkObject && object.NetworkID != NaN)
+            {
+                this._networkObjects.set(object.NetworkID, object);
+            }
             object.OnClient(this._currId, this);
         }
         else
         {
+            console.log("Hello " + this._currId);
             if (object instanceof NetworkObject)
             {
                 object._networkID = this._currId;
+                object._id = this._currId;
             }
             object.OnServer();
         }
-
         this._objects.set(this._currId, object);
         this._currId++;
     }
@@ -63,23 +69,27 @@ class Region
      */
     Delete(object)
     {
-        if (this._isClient)
+        object.OnDelete();
+        this._objects.delete(object.ID);
+        if (object instanceof NetworkObject && object.NetworkID != NaN)
         {
-            object.Delete();
-            this._objects.delete(object.ID);
+            this._networkObjects.delete(object.NetworkID);
         }
-        else
-        {
-            if (object instanceof NetworkObject)
-            {
-                object.ServerDelete();
-                this._objects.delete(object.ID);
-            }
-        }
-
-        this._objects.set(this._currId, object);
-        this._currId++;
     }
+    /**
+     * Gets an object in the region from the ID
+     * @param {int} ID The id of the object
+     */
+    Find(id)
+    {
+        return this._objects.get(id);
+    }
+
+   FindByNetworkID(id)
+   {
+       return this._networkObjects.get(id);
+   }
+
     /**
      * Ticks the region
      * @param {float} deltaTime
@@ -142,7 +152,7 @@ class Region
         while (b.GotData())
         {
             let id = b.ReadShort();
-            this._objects.get(id).Receive(b);
+            this._networkObjects.get(id).Receive(b);
         }
     }
 }

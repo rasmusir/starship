@@ -15,11 +15,18 @@ class GameObject
         this.Position = new Vector();
         this._id = NaN;
         this._region = region;
-        if (region)
+        if (region.Renderer)
         {
             this._gameClient = region._gameClient;
+            this._scene = region.Renderer.Scene;
         }
     }
+
+    get ID()
+    {
+        return this._id;
+    }
+
     /**
      * Called when the game object is initialized on the client
      */
@@ -53,9 +60,17 @@ class GameObject
 
     }
     /**
-     * Removes the game object
+     * Fired when the game object is deleted
      */
-    Delete()
+    OnDelete()
+    {
+
+    }
+
+    /**
+     * Fired on the client when the game object is deleted. Use this to remove graphics and client properties only.
+     */
+    OnClientDelete()
     {
 
     }

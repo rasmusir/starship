@@ -13,7 +13,7 @@ class Cube extends NetworkObject
     OnClient()
     {
         let geometry = new THREE.BoxGeometry( this.size, this.size, this.size );
-        let material = new THREE.MeshPhongMaterial( { color: this.color } );
+        let material = new THREE.MeshNormalMaterial( { color: this.color } );
         this._cube = new THREE.Mesh( geometry, material );
         this._cube.position.set( ...this.Position.ToArray() );
 
@@ -21,9 +21,8 @@ class Cube extends NetworkObject
         this._region.Renderer.Scene.add(this._cube);
     }
 
-    Delete()
+    OnClientDelete()
     {
-        console.log("delete");
         this._region.Renderer.Scene.remove(this._cube);
     }
 

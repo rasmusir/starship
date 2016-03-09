@@ -22,6 +22,8 @@ class Renderer
 
         this._camera = new Camera();
         this._onResize();
+
+        this.stats = require("./SiteHandler").stats;
     }
     /**
      * The current Three.js Scene object.
@@ -47,9 +49,11 @@ class Renderer
 
     _onRender(callback)
     {
+        this.stats.begin();
         callback();
-        requestAnimationFrame( () => { this._onRender(callback); });
         this._renderer.render(this._scene, this._camera.Camera);
+        this.stats.end();
+        requestAnimationFrame( () => { this._onRender(callback); });
     }
 }
 

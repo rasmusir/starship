@@ -28,6 +28,10 @@ class GameClient extends Game
                 let buffer = new ByteBuffer(data);
                 this._handleData(buffer);
             });
+
+            window.onbeforeunload = () => {
+                socket.disconnect();
+            };
         });
 
 
@@ -69,6 +73,14 @@ class GameClient extends Game
                     object._networkID = networkid;
                     object.Sync(buffer);
                     this._region.Add(object);
+
+                    break;
+                }
+                case Network.REGION_DELETE_OBJECT:
+                {
+                    let regionID = buffer.ReadShort();
+                    let objectID = buffer.ReadShort();
+                    this._region.Delete(this._region.FindByNetworkID(objectID));
 
                     break;
                 }
