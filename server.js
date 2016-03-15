@@ -17,7 +17,9 @@ app.use(bodyparser.json());
 app.use("/resources", express.static("resources"));
 app.use(session({
     secret: "a not so secret secret",
-    cookie: {}
+    cookie: {},
+    resave: true,
+    saveUninitialized: false
 }));
 
 let gs = new GameServer(server);
