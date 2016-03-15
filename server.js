@@ -3,6 +3,7 @@
 let express = require("express");
 let fs = require("fs");
 let bodyparser = require("body-parser");
+let session = require("express-session");
 
 let app = express();
 let server = require("http").createServer(app);
@@ -14,6 +15,10 @@ let Api = require("./server/ServerApi");
 
 app.use(bodyparser.json());
 app.use("/resources", express.static("resources"));
+app.use(session({
+    secret: "a not so secret secret",
+    cookie: {}
+}));
 
 let gs = new GameServer(server);
 let api = new Api(app);
