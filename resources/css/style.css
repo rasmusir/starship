@@ -55,13 +55,14 @@ html,body
     overflow: hidden;
     opacity: 1;
     animation-name: boxopen;
-    animation-duration: 0.4s;
+    animation-duration: 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
 }
 
 .box.hide
 {
     animation-name: boxclose;
-    animation-duration: 0.4s;
+    animation-duration: 0.3s;
     animation-fill-mode: forwards;
     animation-timing-function: ease;
     transform: translateX(-50%) translateY(-50%) perspective(600px) rotateX(0deg) scale(1,1);
@@ -115,12 +116,51 @@ html,body
 
 .box.green
 {
-    background: rgba(10,70,10,0.95);
+    background-color: rgba(10,70,10,0.95);
 }
 
 .box.red
 {
-    background: rgba(70,10,10,0.95);
+    background-color: rgba(70,10,10,0.95);
+}
+
+.box.fullscreen
+{
+    width: 100%;
+    height: 100%;
+}
+
+.box.transparent
+{
+    box-shadow: none;
+    border: none;
+    background: none;
+}
+
+.box.nomargin
+{
+    padding: 0;
+    margin: 0;
+}
+
+.box.disabled
+{
+    filter: blur(3px) brightness(0.2);
+    -webkit-filter: blur(3px) brightness(0.6);
+}
+
+.box > .top
+{
+    height: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.4));
+    background-size: 1px 21px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    cursor: move;
+}
+
+.box.notop > .top
+{
+    display: none;
 }
 
 .box > .content
@@ -128,6 +168,28 @@ html,body
     padding: 20px;
     text-align: center;
     color: white;
+}
+
+.box > .disabler
+{
+    position: absolute;
+    display: none;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.box.disabled > .disabler
+{
+    display: block;
+}
+
+.box.nomargin > .content
+{
+    padding: 0px;
+    margin: 0px;
 }
 
 a
@@ -148,11 +210,22 @@ input, button
     width: 200px;
     margin: 3px;
     font-size: 16px;
-    transition: box-shadow 0.2s;
-    box-shadow: none;
+    transition: all 0.2s;
 }
 
 input:focus, button:focus
 {
-    box-shadow: 0px 0px 5px rgba(0,255,255, 1);
+    outline: none;
+    border: 1px solid rgba(203,255,255,0.3);
+}
+
+button:hover, input[type=submit]:hover
+{
+    background: rgba(100,255,255,0.05);
+}
+
+button:active, input[type=submit]:active
+{
+    background: rgba(100,255,255,0.1);
+    box-shadow: 0px 0px 5px rgba(100,255,255, 1);
 }

@@ -4,9 +4,9 @@ class Blueprint
 {
     constructor()
     {
-        this._maxWidth = 10;
-        this._maxLength = 10;
-        this._maxHeight = 10;
+        this._maxWidth = 20;
+        this._maxLength = 20;
+        this._maxHeight = 1;
         this._parts = new Int8Array(this._maxHeight * this._maxWidth * this._maxLength);
     }
 

@@ -2,6 +2,7 @@
 
 let db = require("./Database.js");
 let bc = require("bcrypt-nodejs");
+let fill = require("./Fill");
 let SALT_WORK_FACTOR = 10;
 
 /**
@@ -62,7 +63,7 @@ class User
      */
     static FindByMail(mail, callback)
     {
-        db.query('SELECT * FROM users WHERE email="' + mail + '" LIMIT 1', (err, rows) => {
+        db.db.query('SELECT * FROM users WHERE email="' + mail + '" LIMIT 1', (err, rows) => {
             if (err)
             {
                 return callback(err);
@@ -77,13 +78,31 @@ class User
         });
     }
     /**
-     * Finds a user by firstname or lastname. *NOT YET IMPLEMENTED*
+     * Finds a user by firstname or lastname.
      * @param {string}   name     the name to search for
      * @param {Function} callback(err,user[]) returns the users, or null if no user was found
      */
     static Find(name)
     {
+        db.db.query('SELECT * FROM users WHERE firstname LIKE "' + name + '" OR lastname LIKE "' + name + '" LIMIT 20', (err, rows) => {
+            if (err)
+            {
+                return callback(err);
+            }
+            if (rows.length === 0)
+            {
+                return callback(null, null);
+            }
 
+            let users = [];
+            rows.forEach((r) => {
+                let u = new User();
+                fill(u, r);
+                users.push(u);
+            });
+
+            return callback(null, users);
+        });
     }
     /**
      * Create a new user and put her in the databse
@@ -109,7 +128,7 @@ class User
                     return callback(err);
                 }
 
-                db.query("INSERT INTO users SET ?", { firstname: firstname, lastname: lastname, birthday: birthday, sex: sex, email: email, password: hash }, (err, res) => {
+                db.db.query("INSERT INTO users SET ?", { firstname: firstname, lastname: lastname, birthday: birthday, sex: sex, email: email, password: hash }, (err, res) => {
                     if (err)
                     {
                         return callback(err);
@@ -119,17 +138,35 @@ class User
             });
         });
     }
-}
 
-function fill(target, source)
-{
-    for (let p in source)
+    /**
+     * Create's the user table
+     */
+    static CreateTable(callback)
     {
-        if (target["_" + p] !== undefined)
-        {
-            target["_" + p] = source[p];
-        }
+        db.db.query(`
+            CREATE TABLE IF NOT EXISTS 'users' (
+              'id' int(10) unsigned NOT NULL AUTO_INCREMENT,
+              'firstname' varchar(20) NOT NULL,
+              'lastname' varchar(20) NOT NULL,
+              'birthday date DEFAULT NULL,
+              'sex' tinyint(20) unsigned NOT NULL,
+              'joindate' timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              'lastonline' datetime NOT NULL,
+              'email' varchar(45) NOT NULL,
+              'password' char(60) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+              PRIMARY KEY ('id'),
+              UNIQUE KEY 'id' ('id')
+            ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+        `, (err, res) => {
+            if (err)
+            {
+                return callback(err);
+            }
+            callback(null);
+        });
     }
 }
+
 
 module.exports = User;

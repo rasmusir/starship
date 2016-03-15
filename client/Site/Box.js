@@ -1,6 +1,24 @@
 "use strict";
 
 let $ = document.querySelector.bind(document);
+let topZ = 101;
+let currentDragged = null, offsetX, offsetY;
+
+window.addEventListener("mouseup", (e) => {
+    if (currentDragged)
+    {
+        currentDragged = null;
+    }
+});
+
+window.addEventListener("mousemove", (e) => {
+    if (currentDragged)
+    {
+        e.preventDefault();
+        currentDragged._move(e.clientX, e.clientY);
+    }
+});
+
 /**
  * The baseclass for the box interface
  */
@@ -10,13 +28,26 @@ class Box
     {
         this._div = document.createElement("div");
         this._div.classList.add("box");
-        //this._div.classList.add("hide");
+        this._top = document.createElement("div");
+        this._top.classList.add("top");
+        this._disabler = document.createElement("div");
+        this._disabler.classList.add("disabler");
+
+        this._top.onmousedown = (e) => { e.preventDefault(); this._pickUp(e.clientX, e.clientY); };
+        this._div.onmousedown = (e) => { if (!this._disabled) { this._moveToFront(); } };
+
+        this._div.style.zIndex = topZ;
+        topZ++;
 
         this._content = document.createElement("div");
         this._content.classList.add("content");
 
+        this._div.appendChild(this._top);
         this._div.appendChild(this._content);
         this.$ = this._content.querySelector.bind(this._content);
+        this._div.appendChild(this._disabler);
+
+        this._disabled = false;
     }
     /**
      * Fetches a template from resources/templates to be used inside the Box
@@ -56,7 +87,26 @@ class Box
     ResizeToContent()
     {
         this._div.style.width = this._content.clientWidth + "px";
-        this._div.style.height = this._content.clientHeight + "px";
+        this._div.style.height = (this._content.clientHeight + this._top.clientHeight) + "px";
+    }
+
+    _pickUp(x, y)
+    {
+        currentDragged = this;
+        offsetX = x - this._div.offsetLeft;
+        offsetY = y - this._div.offsetTop;
+    }
+
+    _move(x, y)
+    {
+        this._div.style.left = Math.max((x - offsetX), this._div.clientWidth / 2) + "px";
+        this._div.style.top = Math.max((y - offsetY), this._div.clientHeight / 2) + "px";
+    }
+
+    _moveToFront()
+    {
+        this._div.style.zIndex = topZ;
+        topZ++;
     }
 
     Append(child)
@@ -81,6 +131,19 @@ class Box
     {
         this._div.classList.add("hide");
     }
+
+    Disable()
+    {
+        this._div.classList.add("disabled");
+        this._disabled = true;
+    }
+
+    Enable()
+    {
+        this._div.classList.remove("disabled");
+        this._disabled = false;
+    }
+
     /**
      * Destroyes the box
      * @param {Function} callback called once the box has been destroyed.

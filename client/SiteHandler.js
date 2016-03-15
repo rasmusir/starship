@@ -2,6 +2,7 @@
 
 let $ = document.querySelector.bind(document);
 let AccountHandler = require("./AccountHandler");
+let AliasHandler = require("./AliasHandler");
 
 let GameClient = require("./GameClient");
 
@@ -28,8 +29,9 @@ class SiteHandler
 
         // align top-left
         stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
+        stats.domElement.style.zIndex = "100";
+        stats.domElement.style.left = '3px';
+        stats.domElement.style.top = '3px';
 
         document.body.appendChild( stats.domElement );
 

@@ -32,6 +32,11 @@ class Renderer
     {
         return this._scene;
     }
+
+    get Camera()
+    {
+        return this._camera;
+    }
     /**
      * Starts the scene animation
      * @param {Function} callback a function that will be called before every frame renders

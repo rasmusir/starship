@@ -8,6 +8,7 @@ let ClientRegion = require("./ClientRegion");
 let Vector = require("../shared/Vector");
 let ByteBuffer = require("../shared/ByteBuffer");
 let Network = require("../shared/Network");
+let Interface = require("./Interface/Interface");
 
 /**
 * Base Game class
@@ -19,6 +20,9 @@ class GameClient extends Game
     constructor(siteHandler)
     {
         super();
+
+        let i = new Interface();
+
 
         let socket = io(":6699");
         this._socket = socket;

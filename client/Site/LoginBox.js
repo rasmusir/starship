@@ -33,7 +33,6 @@ class LoginBox extends Box
         if (AccountHandler.Signedin)
         {
             this.Destroy();
-            require("../SiteHandler").StartGame();
             return;
         }
 
@@ -45,8 +44,9 @@ class LoginBox extends Box
             }
             else
             {
+                this.Disable();
                 let FB = require("./FailBox");
-                new FB("Email and password does not match.", "OK.", (fb) => { fb.Destroy(); });
+                new FB("Email and password does not match.", "OK.", (fb) => { fb.Destroy(); this.Enable(); });
             }
         });
     }

@@ -7,7 +7,7 @@ class Camera
     constructor()
     {
         this._ratio = window.innerWidth / window.innerHeight;
-        this._size = 2;
+        this._size = 4;
 
         let scaleX = this._size * this._ratio;
         let scaleY = this._size;
@@ -17,7 +17,12 @@ class Camera
 
         this._position = this._camera.position;
 
-        this._position.z = 10;
+        let rad = (45 / 180) * Math.PI;
+
+        this._position.z = Math.cos(rad) * 50;
+        this._position.y = -Math.sin(rad) * 50;
+
+        this._camera.rotation.x = rad;
     }
     /**
      * Returns the THREE.Camera currently in use.

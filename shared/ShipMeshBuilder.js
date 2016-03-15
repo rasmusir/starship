@@ -7,50 +7,25 @@ class ShipMeshBuilder
 
     }
 
-    Build(blueprint, offset, size)
+    Build(blueprint, center, size, callback)
     {
         size = size || 1;
-        let cubes = [];
-        for (let x = 0; x < blueprint.MaxWidth; x++)
-        {
-            for (let y = 0; y < blueprint.MaxLength; y++)
-            {
-                for (let z = 0; z < blueprint.MaxHeight; z++)
-                {
-                    if (blueprint.Get(x, y, z) !== 0)
-                    {
-                        cubes.push({vertices: this.Vertices(x + offset.X, y + offset.Y, z + offset.Z, size), normals: this.Normals()});
-                    }
-                }
-            }
-        }
 
-        let vertices = new Float32Array(cubes.length * 72);
-        let indices = new Uint32Array(cubes.length * 36);
-        let normals = new Float32Array(cubes.length * 72);
-        let vi = 0;
-        let ii = 0;
-        let vc = 0;
+        let worker = new Worker("/resources/scripts/ShipBuilderWorker.js");
 
-        cubes.forEach((q) => {
-            vertices.set(q.vertices, vi);
-            this.Indices(indices, ii, vc);
-            normals.set(q.normals, vi);
+        worker.onmessage = (e) => {
+            let data = e.data;
+            let geometry = new THREE.BufferGeometry();
+            geometry.setIndex(new THREE.BufferAttribute(data.indices, 1));
+            geometry.addAttribute("position", new THREE.BufferAttribute(data.vertices, 3));
+            geometry.addAttribute("normal", new THREE.BufferAttribute(data.normals, 3));
+            let mat = new THREE.MeshNormalMaterial({color: 0xff0000, side: THREE.DoubleSided});
+            let mesh = new THREE.Mesh(geometry, mat);
 
-            vi += q.vertices.length;
-            vc += q.vertices.length / 3;
-            ii += 36;
-        });
+            callback(data.err, mesh);
+        };
 
-
-        let geometry = new THREE.BufferGeometry();
-        geometry.setIndex(new THREE.BufferAttribute(indices, 1));
-        geometry.addAttribute("position", new THREE.BufferAttribute(vertices, 3));
-        geometry.addAttribute("normal", new THREE.BufferAttribute(normals, 3));
-        let mat = new THREE.MeshNormalMaterial({color: 0xff0000, side: THREE.DoubleSided});
-        let mesh = new THREE.Mesh(geometry, mat);
-
-        return mesh;
+        worker.postMessage({do: "build", width: blueprint.MaxWidth, height: blueprint.MaxHeight, length: blueprint.MaxLength, blueprintData: blueprint._parts, size: size, center: center});
     }
 
     Vertices(x, y, z, s)

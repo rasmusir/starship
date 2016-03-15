@@ -57,6 +57,11 @@ class Input
                         }
                     }
                 });
+
+                document.addEventListener("mousemove", (event) => {
+                    this.MouseX = event.clientX;
+                    this.MouseY = event.clientY;
+                });
             }
         }, 500);
 
@@ -64,6 +69,9 @@ class Input
         this.Right = false;
         this.Up = false;
         this.Down = false;
+
+        this.MouseX = 0;
+        this.MouseY = 0;
     }
 }
 
