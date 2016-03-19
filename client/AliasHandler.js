@@ -13,7 +13,10 @@ class AliasHandler
         this._firstname = "";
         this._lastname = "";
         this._id = "";
+        this._valid = false;
     }
+
+    get IsValid() { return this._valid; }
 
     /**
      * Try to perform a login
@@ -24,13 +27,14 @@ class AliasHandler
     Activate(email, password, callback)
     {
 
-        API.Post("/alias", {email: email, password: password}, (res) => {
+        API.Get("/alias", {email: email, password: password}, (res) => {
             if (res.success)
             {
                 this._signedin = true;
                 this._firstname = res.firstname;
                 this._lastname = res.lastname;
                 this._id = res.id;
+                this._valid = true;
             }
             callback(res.success);
         });
@@ -48,7 +52,6 @@ class AliasHandler
      */
     Create(data, callback)
     {
-
         API.Post("/alias/register", data, (res) => {
             callback(res.success);
         });

@@ -33,6 +33,8 @@ class Box
         this._disabler = document.createElement("div");
         this._disabler.classList.add("disabler");
 
+        this._div.classList.add("show");
+
         this._top.onmousedown = (e) => { e.preventDefault(); this._pickUp(e.clientX, e.clientY); };
         this._div.onmousedown = (e) => { if (!this._disabled) { this._moveToFront(); } };
 
@@ -122,6 +124,14 @@ class Box
         setTimeout(() => {
             this._div.innerHeight;
             this._div.classList.remove("hide");
+
+            let destroy = () => {
+                this._div.removeEventListener("animationend", destroy);
+                this._div.classList.remove("show");
+            };
+
+            this._div.addEventListener("animationend", destroy );
+            this._div.classList.add("show");
         }, 200);
     }
     /**
@@ -130,6 +140,22 @@ class Box
     Hide()
     {
         this._div.classList.add("hide");
+        this._div.classList.remove("show");
+    }
+
+    /**
+     * Flashes the box
+     */
+    Flash()
+    {
+
+        let destroy = () => {
+            this._div.removeEventListener("animationend", destroy);
+            this._div.classList.remove("flash");
+        };
+
+        this._div.addEventListener("animationend", destroy );
+        this._div.classList.add("flash");
     }
 
     Disable()
@@ -161,6 +187,7 @@ class Box
 
         this._div.addEventListener("animationend", destroy );
         this._div.classList.add("hide");
+        this._div.classList.remove("show");
     }
     /**
      * Destroys the current box. Once the box has been destroyed creates a new {@link Box} of type nextBox

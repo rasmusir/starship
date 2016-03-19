@@ -1,12 +1,15 @@
 "use strict";
 
+let db = require("./Database.js");
+let fill = require("./Fill");
+
 class Alias
 {
     constructor()
     {
-        this._id;
-        this._firstname;
-        this._lastname;
+        this._id = null;
+        this._firstname = null;
+        this._lastname = null;
     }
 
     /**
@@ -22,11 +25,6 @@ class Alias
      */
     get Lastname() { return this._lastname; }
 
-    GetByUserID()
-    {
-
-    }
-
     Get(id)
     {
         db.query('SELECT * FROM aliases WHERE id="' + id + '" LIMIT 1', (err, rows) => {
@@ -39,6 +37,24 @@ class Alias
                 return callback(null, null);
             }
             let alias = new Alias();
+            fill(alias, rows[0]);
+            return callback(null, alias);
+        });
+    }
+
+    static GetByUserID(uid, callback)
+    {
+        db.query('SELECT * FROM aliases WHERE userid=' + uid + ' LIMIT 1', (err, rows) => {
+            if (err)
+            {
+                return callback(err);
+            }
+            if (rows.length === 0)
+            {
+                return callback(null, null);
+            }
+            let alias = new Alias();
+
             fill(alias, rows[0]);
             return callback(null, alias);
         });
@@ -72,7 +88,7 @@ class Alias
         });
     }
 
-    Create(userID)
+    static Create(userID)
     {
         db.query("INSERT INTO aliases SET ?", { firstname: firstname, lastname: lastname, userid: userID}, (err, res) => {
             if (err)
@@ -83,6 +99,11 @@ class Alias
         });
     }
 
+    toJSON()
+    {
+        return {ID: this._id, Firstname: this._firstname, Lastname: this._lastname};
+    }
+
 }
 
-moudle.exports = Alias;
+module.exports = Alias;

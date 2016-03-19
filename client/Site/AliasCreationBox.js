@@ -7,7 +7,7 @@ let AccountHandler = require("../AccountHandler");
  * An alias creation box
  * @extends Box
  */
-class CreateAliasBox extends Box
+class AliasCreationBox extends Box
 {
     constructor()
     {
@@ -58,4 +58,4 @@ class CreateAliasBox extends Box
     }
 }
 
-module.exports = CreateAliasBox;
+module.exports = AliasCreationBox;

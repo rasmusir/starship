@@ -7,6 +7,7 @@ let AliasHandler = require("./AliasHandler");
 let GameClient = require("./GameClient");
 
 let LoginBox = require("./Site/LoginBox");
+let AliasCreationBox = require("./Site/AliasCreationBox");
 /**
  * Handled all webrelated things.
  * @namespace
@@ -45,8 +46,16 @@ class SiteHandler
      */
     StartGame()
     {
-        let h = new GameClient(this);
-        this._gamearea.classList.add("show");
+        if ( !AliasHandler.IsValid )
+        {
+            let h = new GameClient(this);
+            this._gamearea.classList.add("show");
+        }
+        else
+        {
+            let acb = new AliasCreationBox();
+            acb.StartGame = this.StartGame.bind(this);
+        }
     }
 }
 

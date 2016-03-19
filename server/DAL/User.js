@@ -22,6 +22,21 @@ class User
         this._email = null;
         this._password = null;
     }
+
+    toJSON()
+    {
+        return {
+            ID: this._id,
+            Firstname: this._firstname,
+            Lastname: this._lastname,
+            Birthday: this._birthday,
+            Sex: this._sex,
+            Joindate: this._joindate,
+            Lastonline: this._lastonline,
+            Email: this._email
+        };
+    }
+
     /**
      * The user ID
      */
@@ -63,7 +78,7 @@ class User
      */
     static FindByMail(mail, callback)
     {
-        db.db.query('SELECT * FROM users WHERE email="' + mail + '" LIMIT 1', (err, rows) => {
+        db.query('SELECT * FROM users WHERE email="' + mail + '" LIMIT 1', (err, rows) => {
             if (err)
             {
                 return callback(err);
@@ -84,7 +99,7 @@ class User
      */
     static Find(name)
     {
-        db.db.query('SELECT * FROM users WHERE firstname LIKE "' + name + '" OR lastname LIKE "' + name + '" LIMIT 20', (err, rows) => {
+        db.query('SELECT * FROM users WHERE firstname LIKE "' + name + '" OR lastname LIKE "' + name + '" LIMIT 20', (err, rows) => {
             if (err)
             {
                 return callback(err);
@@ -128,7 +143,7 @@ class User
                     return callback(err);
                 }
 
-                db.db.query("INSERT INTO users SET ?", { firstname: firstname, lastname: lastname, birthday: birthday, sex: sex, email: email, password: hash }, (err, res) => {
+                db.query("INSERT INTO users SET ?", { firstname: firstname, lastname: lastname, birthday: birthday, sex: sex, email: email, password: hash }, (err, res) => {
                     if (err)
                     {
                         return callback(err);
@@ -144,7 +159,7 @@ class User
      */
     static CreateTable(callback)
     {
-        db.db.query(`
+        db.query(`
             CREATE TABLE IF NOT EXISTS 'users' (
               'id' int(10) unsigned NOT NULL AUTO_INCREMENT,
               'firstname' varchar(20) NOT NULL,

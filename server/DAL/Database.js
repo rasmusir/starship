@@ -11,11 +11,11 @@ let conf = {
     host : "sql7.freemysqlhosting.net"
 };
 
-let ex = {db:null};
+let ex = {query: null};
 
 function handleDisconnect() {
     db = mysql.createConnection(conf);
-    ex.db = db;
+    ex.query = db.query.bind(db);
     db.connect( (err) => {
         if (err) {
             console.log('error when connecting to db:', err);

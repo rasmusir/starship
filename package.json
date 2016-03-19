@@ -18,6 +18,7 @@
   ],
   "license": "ISC",
   "dependencies": {
+    "alea": "0.0.9",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
     "browserify": "^13.0.0",
