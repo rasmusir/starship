@@ -50,6 +50,8 @@ class Box
         this._div.appendChild(this._disabler);
 
         this._disabled = false;
+
+        this.OnMove = null;
     }
     /**
      * Fetches a template from resources/templates to be used inside the Box
@@ -103,6 +105,11 @@ class Box
     {
         this._div.style.left = Math.max((x - offsetX), this._div.clientWidth / 2) + "px";
         this._div.style.top = Math.max((y - offsetY), this._div.clientHeight / 2) + "px";
+
+        if (this.OnMove)
+        {
+            this.OnMove((x - offsetX), (y - offsetY));
+        }
     }
 
     _moveToFront()

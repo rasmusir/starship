@@ -8,6 +8,8 @@ let GameClient = require("./GameClient");
 
 let LoginBox = require("./Site/LoginBox");
 let AliasCreationBox = require("./Site/AliasCreationBox");
+
+let NoiseTest = require("./NoiseTest");
 /**
  * Handled all webrelated things.
  * @namespace
@@ -40,6 +42,8 @@ class SiteHandler
 
         let lb = new LoginBox();
         lb.StartGame = this.StartGame.bind(this);
+
+        //let nt = new NoiseTest();
     }
     /**
      * Starts the game.

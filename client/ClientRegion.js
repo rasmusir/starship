@@ -4,6 +4,7 @@ let Region = require("../shared/Region");
 let Blueprint = require("../shared/Blueprint");
 let ShipMeshBuilder = require("../shared/ShipMeshBuilder");
 let Vector = require("../shared/Vector");
+let Terrain = require("../shared/Objects/Terrain");
 
 /**
  * A region on the clientside
@@ -15,7 +16,7 @@ class ClientRegion extends Region
         super(id, true);
         this._gameClient = gameClient;
         this._renderer = renderer || null;
-        let light = new THREE.DirectionalLight( 0xffffff, 0.5);
+        let light = new THREE.DirectionalLight( 0xffffff, 1);
         let alight = new THREE.AmbientLight( 0x404040 );
         light.position.set( 0, 1, 2);
         this.Renderer.Scene.add(light);
@@ -54,11 +55,18 @@ class ClientRegion extends Region
         this._objects = new Map();
         this._currId = 0;
 
-        let light = new THREE.DirectionalLight( 0xffffff, 0.5);
+        let light = new THREE.DirectionalLight( 0xffffff, 1);
         let alight = new THREE.AmbientLight( 0x404040 );
-        light.position.set( 0, 1, 2);
+        light.position.set( 0, -1, 2);
+        light.position.set( 1, 0, 1);
         this.Renderer.Scene.add(light);
         this.Renderer.Scene.add(alight);
+
+        let t = new Terrain(this, 0);
+        this.Add(t);
+
+        this.Add(new Terrain(this, 1));
+        this.Add(new Terrain(this, -1));
     }
 
     Delete(object)

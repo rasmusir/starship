@@ -139,7 +139,7 @@ class Region
         let b = buffer;
         b.WriteByte(Network.CLIENT_UPDATE);
         b.WriteShort(this.ID);
-        this._objects.forEach( (object, id) => {
+        this._networkObjects.forEach( (object, id) => {
             object.Send(b);
         });
     }
