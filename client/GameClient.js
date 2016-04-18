@@ -21,7 +21,7 @@ class GameClient extends Game
     {
         super();
 
-        let i = new Interface();
+        //let i = new Interface();
 
 
         let socket = io(":6699");

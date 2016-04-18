@@ -58,10 +58,31 @@ class Input
                     }
                 });
 
-                document.addEventListener("mousemove", (event) => {
-                    this.MouseX = event.clientX;
-                    this.MouseY = event.clientY;
+                let mousemove = (event) => {
+                    if (event.targetTouches) {
+                        event.preventDefault();
+                        let touch = event.targetTouches[0];
+                        // Place element where the finger is
+                        this.MouseX = touch.pageX;
+                        this.MouseY = touch.pageY;
+                    }
+                    else
+                    {
+                        this.MouseX = event.clientX;
+                        this.MouseY = event.clientY;
+                    }
+                };
+
+                document.addEventListener("mousemove", mousemove);
+                document.addEventListener("touchmove", mousemove);
+                document.addEventListener("mousedown", (event) => {
+                    this.Mouse1Down = true;
                 });
+                document.addEventListener("mouseup", (event) => {
+                    this.Mouse1Down = false;
+                });
+
+
             }
         }, 500);
 
@@ -72,6 +93,8 @@ class Input
 
         this.MouseX = 0;
         this.MouseY = 0;
+        this.Mouse1Down = false;
+        this.Mouse2Down = false;
     }
 }
 

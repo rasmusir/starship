@@ -12,7 +12,7 @@ class Camera
         let scaleX = this._size * this._ratio;
         let scaleY = this._size;
 
-        this._camera = new THREE.OrthographicCamera(-scaleX, scaleX, scaleY, -scaleY, 1, 1000);
+        this._camera = new THREE.OrthographicCamera(-scaleX, scaleX, scaleY, -scaleY, 0.1, 1000);
         //this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
         this._position = this._camera.position;

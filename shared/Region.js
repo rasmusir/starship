@@ -2,6 +2,7 @@
 
 let Network = require("./Network");
 let NetworkObject = require("./NetworkObject");
+let GameObject = require("./GameObject");
 let ByteBuffer = require("./ByteBuffer");
 let Client = require("./Client");
 
@@ -42,6 +43,10 @@ class Region
      */
     Add(object)
     {
+        if (!(object instanceof GameObject))
+        {
+            throw new Error(object + " is not a GameObject");
+        }
         if (this._isClient)
         {
             if (object instanceof NetworkObject && object.NetworkID != NaN)
