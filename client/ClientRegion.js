@@ -62,7 +62,11 @@ class ClientRegion extends Region
         this.Renderer.Scene.add(light);
         this.Renderer.Scene.add(alight);
 
-        this.Add(new Space(this));
+        if (!this.Space)
+        {
+            this.Space = new Space(this);
+            this.Add(this.Space);
+        }
     }
 
     Delete(object)

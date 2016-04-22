@@ -17,9 +17,11 @@ class Ship extends NetworkObject
         this.color = 0xffffff * Math.random();
 
         this.t = 0;
-        this._speed = Math.random();
+        this._speed = 0;
+        this._velocity = new Vector();
         this._target = new Vector();
         this._client = null;
+        
     }
 
     OnClient()
@@ -80,6 +82,7 @@ class Ship extends NetworkObject
     Tick()
     {
         super.Tick();
+        //Do we own this ship?
         if (this._client && this._client.ID === this._gameClient.ClientID)
         {
             let mpos = getXY(Input.MouseX, Input.MouseY, this._region._renderer.Camera._camera);
@@ -95,16 +98,34 @@ class Ship extends NetworkObject
                 this._mesh.rotation.z = ang + Math.PI / 2;
             }
 
-            //this.Position.X -= (this.Position.X - mpos.x) / 10;//+= Input.Right * 0.05 - Input.Left * 0.05;
-            //this.Position.Y -= (this.Position.Y - mpos.y) / 10;//+= Input.Up * 0.05 - Input.Down * 0.05;
+            if (Input.Mouse1Down)
+            {
+                let dir = new Vector(mpos.x - this.Position.X, mpos.y - this.Position.Y, 0);
+                this._speed = Math.min(this._speed + 0.01, 1);
+                dir.Normalize();
+                dir.Multiply(0.01);
+                this._velocity.Add(dir);
+            }
+            else {
+                this._velocity.Multiply(0.9);
+            }
+            //this.Position.X = 0;
+            //this.Position.Y = 0;
+            this.Region.Space.StarOffset.X = this.Position.X;
+            this.Region.Space.StarOffset.Y = this.Position.Y;
+            this.Position.X += this._velocity.X;
+            this.Position.Y += this._velocity.Y;
+            this.Camera.LookAt(this.Position.X, this.Position.Y);
         }
         else {
-            this.Position.X += (this._target.X - this.Position.X) / 10;
-            this.Position.Y += (this._target.Y - this.Position.Y) / 10;
+            this.Position.X += this._velocity.X;
+            this.Position.Y += this._velocity.Y;
         }
+
+
+
         if (this._mesh)
         {
-
             this._mesh.position.set(...this.Position.ToArray()); //.set( ...this.Position.ToArray() );
         }
     }
@@ -129,6 +150,7 @@ class Ship extends NetworkObject
         if (this._client && this._client.ID === this._gameClient.ClientID)
         {
             super.Send(buffer);
+            buffer.WriteVector(this._velocity);
             buffer.WriteVector(this.Position);
         }
     }
@@ -136,21 +158,26 @@ class Ship extends NetworkObject
     ServerSend(buffer)
     {
         super.ServerSend(buffer);
+        buffer.WriteVector(this._velocity);
         buffer.WriteVector(this.Position);
     }
 
     Receive(buffer)
     {
+        let vel = buffer.ReadVector();
         let pos = buffer.ReadVector();
         if (!this._client || this._client.ID !== this._gameClient.ClientID)
         {
-            this._target = pos;
+            this._velocity = vel;
+            //this.Position = pos;
         }
     }
 
     ServerReceive(buffer)
     {
-        this.Position = buffer.ReadVector();
+        this._velocity = buffer.ReadVector();
+        buffer.ReadVector();
+        //this.Position = buffer.ReadVector();
     }
 }
 

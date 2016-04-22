@@ -112,7 +112,7 @@ let vertex = `
 
     void main() {
 
-        vec2 unWrappedPos = vec2(position.x - mPos.x * pow(position.z, 3.0) * 0.4, position.y + mPos.y * pow(position.z, 3.0) * 0.4);
+        vec2 unWrappedPos = vec2(position.x - mPos.x * pow(position.z, 3.0) * 0.4, position.y - mPos.y * pow(position.z, 3.0) * 0.4);
         vec4 newPos = vec4(mod(unWrappedPos.x, mPos.z), mod(unWrappedPos.y, mPos.w), position.z, 1.0);
 
         vec2 noisePos = vec2(position.x - ceil(unWrappedPos.x / mPos.z) * mPos.z, position.y - ceil(unWrappedPos.y / mPos.w) * mPos.w);
@@ -151,8 +151,8 @@ let shaderMaterial = new THREE.ShaderMaterial( {
     vertexShader: vertex,
     fragmentShader: fragment,
     transparent: true,
-    blending: THREE.AdditiveBlending,
-    depthTest:false
+    //blending: THREE.AdditiveBlending,
+    depthTest:true
 });
 
 module.exports = shaderMaterial;

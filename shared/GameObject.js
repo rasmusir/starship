@@ -27,6 +27,21 @@ class GameObject
         return this._id;
     }
 
+    get Region()
+    {
+        return this._region;
+    }
+
+    get Renderer()
+    {
+        return this._region.Renderer;
+    }
+
+    get Camera()
+    {
+        return this._region.Renderer.Camera;
+    }
+
     /**
      * Called when the game object is initialized on the client
      */

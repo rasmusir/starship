@@ -1,9 +1,10 @@
 "use strict";
 
-let NetworkObject = require("../NetworkObject");
+let GameObject = require("../GameObject");
 let Input = require("../../client/Input");
+let Vector = require("../Vector");
 
-class Space extends NetworkObject
+class Space extends GameObject
 {
     constructor(region)
     {
@@ -12,7 +13,8 @@ class Space extends NetworkObject
 
     OnClient()
     {
-        this._count = 20000;
+        this.StarOffset = new Vector();
+        this._count = 1000;
         let alphas = new Float32Array( this._count ); // 1 values per vertex
         let sizes = new Float32Array( this._count ); // 1 values per vertex
         let vertices = new Float32Array( this._count * 3 ); // 1 values per vertex
@@ -65,12 +67,10 @@ class Space extends NetworkObject
 
     Tick()
     {
-        let mposx = Input.MouseX / 10;
-        let mposy = Input.MouseY / 10;
         let maxx = this._region._renderer.Camera._size * 2 * this._region._renderer.Camera._ratio;
         let maxy = this._region._renderer.Camera._size * 2;
 
-        this.m.uniforms.mPos.value = new THREE.Vector4(mposx, mposy, maxx, maxy);
+        this.m.uniforms.mPos.value = new THREE.Vector4(this.StarOffset.X, this.StarOffset.Y, maxx, maxy);
     }
 }
 

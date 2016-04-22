@@ -145,7 +145,10 @@ class Region
         b.WriteByte(Network.CLIENT_UPDATE);
         b.WriteShort(this.ID);
         this._objects.forEach( (object, id) => {
-            object.Send(b);
+            if (object instanceof NetworkObject)
+            {
+                object.Send(b);
+            }
         });
     }
     /**

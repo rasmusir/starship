@@ -16,13 +16,15 @@ class Camera
         //this._camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
         this._position = this._camera.position;
+        this._angle = 90;
 
-        let rad = (45 / 180) * Math.PI;
+        let rad = (this._angle / 180) * Math.PI;
 
-        this._position.z = Math.cos(rad) * 50;
+        this._position.z = Math.cos(45) * 50;
         this._position.y = -Math.sin(rad) * 50;
-
-        this._camera.rotation.x = rad;
+        this._position.x = Math.sin(rad) * 50;
+        this._camera.up = new THREE.Vector3(0, 0, 1);
+        this._camera.lookAt(new THREE.Vector3(0, 0, 0));
     }
     /**
      * Returns the THREE.Camera currently in use.
@@ -31,6 +33,15 @@ class Camera
     {
         return this._camera;
     }
+
+    LookAt(x, y)
+    {
+        let rad = (this._angle / 180) * Math.PI;
+        this._position.x = x + Math.cos(rad) * 50;
+        this._position.y = y - Math.sin(rad) * 50;
+        this._camera.lookAt(new THREE.Vector3(x, y, 0));
+    }
+
     /**
      * Sets the game display size.
      * @param {int} width
