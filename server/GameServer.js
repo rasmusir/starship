@@ -12,13 +12,16 @@ let Nanotimer = require("nanotimer");
  */
 class GameServer extends Game
 {
-    constructor(server)
+    constructor(server, session)
     {
         super();
 
         this._clients = [];
 
         this.io = socketio(6699);
+        this.io.use((socket, next) => {
+            session(socket.request, socket.request.res, next);
+        });
         this.io.on("connection", (socket) => { this.clientConnected(socket); });
 
         this._regions = [];

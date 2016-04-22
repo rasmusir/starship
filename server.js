@@ -15,14 +15,15 @@ let Api = require("./server/ServerApi");
 
 app.use(bodyparser.json());
 app.use("/resources", express.static("resources"));
-app.use(session({
+let sessionMiddleware = session({
     secret: "a not so secret secret",
     cookie: {},
     resave: true,
     saveUninitialized: false
-}));
+});
+app.use(sessionMiddleware);
 
-let gs = new GameServer(server);
+let gs = new GameServer(server, sessionMiddleware);
 let api = new Api(app);
 
 

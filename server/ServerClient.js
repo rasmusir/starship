@@ -20,7 +20,10 @@ class ServerClient extends Client
         super(id);
         this._socket = socket;
         this._buffer = new ByteBuffer();
-
+        if (socket.request.session.user)
+        {
+            this._name = socket.request.session.user.Firstname;
+        }
     }
     /**
      * Performs a handshake with the client. Used to let the client know we have recognized it's connection.
@@ -37,6 +40,12 @@ class ServerClient extends Client
             let b = new ByteBuffer(toArrayBuffer(data));
             this.Receive(b);
         });
+
+        this._socket.on("chat", (data) => {
+            this._socket.broadcast.emit("chat", {message: data.message, sender: this._name});
+            this._socket.emit("chat", {message: data.message, sender: this._name});
+        });
+        this._socket.broadcast.emit("chat", {message: this._name + " has come online", sender: null, color: "yellow"});
 
         //TODO This._socket.on("chat")
     }

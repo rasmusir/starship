@@ -29,7 +29,7 @@ class GameClient extends Game
         this._socket = socket;
 
         socket.on("connect", () => {
-            new Chat();
+            new Chat(socket);
             socket.on("message", (data) => {
                 let buffer = new ByteBuffer(data);
                 this._handleData(buffer);
