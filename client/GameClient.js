@@ -9,6 +9,7 @@ let Vector = require("../shared/Vector");
 let ByteBuffer = require("../shared/ByteBuffer");
 let Network = require("../shared/Network");
 let Interface = require("./Interface/Interface");
+let Chat = require("./Interface/Chat");
 
 /**
 * Base Game class
@@ -23,11 +24,12 @@ class GameClient extends Game
 
         //let i = new Interface();
 
-
+        console.log("testCHat");
         let socket = io(":6699");
         this._socket = socket;
 
         socket.on("connect", () => {
+            new Chat();
             socket.on("message", (data) => {
                 let buffer = new ByteBuffer(data);
                 this._handleData(buffer);

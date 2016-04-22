@@ -75,8 +75,9 @@ class Input
 
                 document.addEventListener("mousemove", mousemove);
                 document.addEventListener("touchmove", mousemove);
-                document.addEventListener("mousedown", (event) => {
+                canvas.addEventListener("mousedown", (event) => {
                     this.Mouse1Down = true;
+                    console.log("hello");
                 });
                 document.addEventListener("mouseup", (event) => {
                     this.Mouse1Down = false;

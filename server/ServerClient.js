@@ -37,6 +37,8 @@ class ServerClient extends Client
             let b = new ByteBuffer(toArrayBuffer(data));
             this.Receive(b);
         });
+
+        //TODO This._socket.on("chat")
     }
     /**
      * Move the client to a region
